@@ -1,0 +1,249 @@
+/*html,body,p{
+	text-transform: uppercase;
+}*/
+
+.navbar{
+	position: relative;
+	margin-bottom: unset;
+}
+
+.no-padding [class^="col-"]{
+	padding: 0px;
+}
+
+.btn-black{
+	background-color: #000;
+	color: #fff;
+}
+
+.btn-black:hover{
+	background-color: #222;
+	color: #fff;
+}
+
+.detail-img-thumb{
+	margin: auto;
+    padding: 0px 45px;
+}
+
+footer.footer{
+	border-top: 1px solid #d6d6d6;
+}
+
+footer.footer input.input-round{
+	border-color: #000;
+	border-right: unset;
+	z-index: inherit;
+}
+.logo-footer{
+	max-width: 230px;
+	width: 100%;
+}
+.list-img-porto{
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.list-img-porto img{
+	margin: 20px auto;
+	display: block;
+}
+
+.text-dark ul li a{
+	color: #000;
+}
+
+.list-kontak li{
+	margin: 5px 0;
+}
+.kontak .icon-telephone,
+.kontak .icon-envelope,
+.list-kontak i.fa{
+	font-size: 25px;
+}
+
+.list-kontak i.fa-whatsapp{
+	font-size: 29px !important;
+}
+
+.fa-facebook-square {
+  color: #3b5998 !important;
+  background-image: linear-gradient( to bottom, transparent 20%, white 20%, white 93%, transparent 93% );
+  background-size: 55%;
+  background-position: 70% 0;
+  background-repeat: no-repeat;
+}
+
+.fa.fa-youtube-play {
+	color: #e62117 !important;
+}
+.fa.fa-instagram {
+  color: transparent;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+.kontak .deskripsi p{
+	margin-bottom: 0.2em;
+}
+
+.fa-star.checked{
+	color: orange;
+}
+
+.kontak .address-title{
+	font-size: 18px;
+	margin-left: 5px;
+}
+
+.navbar-toggle.collapsed.text-dark .icon-bar{
+	background-color: #000 !important;
+}
+
+.testi-front{
+	margin: auto 15px;
+	display: block;
+}
+
+.btn-transparant{
+	background: transparent;
+	border: 1px solid black;
+	color: inherit;
+}
+
+.btn-transparant:hover{
+	background: #000;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+      width: 90%;
+    max-width: 950px;
+    /* top: -26%; */
+    bottom: 100%;
+    /* left: 0; */
+    right: 0%;
+}
+
+.close {
+  position: absolute;
+top: 12%;
+right: 15%;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+main.mobile{
+	display: none;
+}
+
+main.desktop{
+	display: block;
+}
+
+.blog-info{
+	padding-top: 2rem;	
+}
+
+.post-meta{
+	margin: unset;
+}
+
+.paggingna a,
+.paggingna strong{
+	margin: auto 5px;
+}
+
+.owl-pagination{
+	margin-top: unset;
+}
+
+.recent-works .blog-rubric{
+	margin-bottom: unset;
+}
+
+.blog-head{
+	padding-bottom: unset;
+}
+
+.section-title, .blog-title{
+	font-size: 22px;
+}
+
+.blog-rubric, .post-rubric{
+	font-size: 12px;
+}
+
+.navbar .container{
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+@media only screen and (max-width: 890px)  {
+	.deskripsi{
+		padding-bottom: 65px;
+	}
+
+	main.mobile{
+		display: block;
+	}
+
+	main.desktop{
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 620px)  {
+	.section{
+		padding-top: 2em;
+	}
+
+	.footer, a.logo-footer,
+	.footer ul.social-list{
+		text-align: center;
+		display: block;
+		margin: auto;
+	}
+
+	.blog-info{
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+
+	.footer ul.social-list{
+		width: 100%;
+	}
+
+	.close {
+		top: 7%;
+		right: 5%;
+	}
+
+	.recent-works .col-blog .blog-info{
+		padding: unset;
+	}
+}
