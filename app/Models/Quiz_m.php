@@ -9,7 +9,7 @@ class Quiz_m extends Model
     protected $table      = 'bdd_quiz_quiz';
     protected $primaryKey = 'id';
 
-    protected $useAutoIncrement = false;
+    protected $useAutoIncrement = true;
 
     protected $returnType     = 'array';
     protected $useSoftDeletes = true;
@@ -25,5 +25,12 @@ class Quiz_m extends Model
     protected $validationMessages = [];
     protected $skipValidation     = true;
 
+    function get_qdetail($id_quiz){
+        $db = db_connect();
+        $builder = $db->table('bdd_quiz_qdetail');
+        $query   = $builder->getWhere(['id_quiz' => $id_quiz]);
+        $quizd = $query->getResult();
 
+        return $quizd;
+    }
 }

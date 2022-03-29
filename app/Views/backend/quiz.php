@@ -22,11 +22,22 @@
                     <th>No</th>
                     <th>Title</th>
                     <th>Sub title</th>
-                    <th>Type</th>
+                    <th>Duration</th>
+                    <th>Passing Grade</th>
                     <th>Create At</th>
                     <th>Create By</th>
                 </thead>
                 <tbody>
+                <?php $no=1; foreach ($datana as $key => $value) { ?>
+                    <tr>
+                    <td><?=$no++?></td>
+                    <td><?=$value['title']?></td>
+                    <td><?=$value['sub_title']?></td>
+                    <td><?=$value['duration']?></td>
+                    <td><?=$value['passing_grade']?></td>
+                    <td><?=date('Y-m-d H:i', strtotime($value['create_at']))?></td>
+                    </tr>
+                <?php } ?>
 
                 </tbody>
             </table>

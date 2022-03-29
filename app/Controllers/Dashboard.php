@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\question_m;
-//use App\Models\global_m;
+use App\Models\quiz_m;
 
 class Dashboard extends BaseController
 {
@@ -10,9 +10,11 @@ class Dashboard extends BaseController
     public function __construct()
     {
         $this->question = new question_m();
-        //$this->global = new global_m();
+        $this->quiz = new quiz_m();
         $this->id_user = 0; 
-        $this->tb_quiz = db_connect('default')->table('bdd_quiz_question');
+        $this->tb_ques = db_connect('default')->table('bdd_quiz_question');
+        $this->tb_quiz = db_connect('default')->table('bdd_quiz_quiz');
+        $this->tb_quizd = db_connect('default')->table('bdd_quiz_qdetail');
         $this->tb_answ = db_connect('default')->table('bdd_quiz_answer');
     }
 
@@ -78,7 +80,7 @@ class Dashboard extends BaseController
             'create_at' => date('Y-m-d H:i:s'),
             'create_by' => $this->id_user
         );
-        $this->tb_quiz->insert($q_data);
+        $this->tb_ques->insert($q_data);
 
         if ($q_type == 0 ) { // single question            
             for ($i=0; $i < sizeof($a_content); $i++){
@@ -167,7 +169,7 @@ class Dashboard extends BaseController
     }
 
     public function quiz(){
-        $data['datana'] = $this->question->findAll();
+        $data['datana'] = $this->quiz->findAll();
         echo view('header');
         echo view('backend/quiz',$data);
         echo view('footer');
@@ -181,8 +183,8 @@ class Dashboard extends BaseController
     }
 
     public function quiz_view($id){
-        $data['ques'] = $this->question->find($id);
-        $data['answer'] = $this->question->get_answer($id);
+        $data['quiz'] = $this->quiz->find($id);
+        $data['qdetail'] = $this->quiz->get_qdetail($id);
         
         echo view('header');
         echo view('backend/quiz_v', $data);
@@ -208,6 +210,30 @@ class Dashboard extends BaseController
             'type' => $type
         );
         echo json_encode($data);
+    }
+
+    public function save_quiz(){
+        extract($_POST);
+
+        $data_quiz = array(
+            'title' => $title,
+            'sub_title' => $sub_title,
+            'duration' => $duration,
+            'passing_grade' => $passing_grade,
+            'random_question' => $random_question,
+            'create_at' => date('Y-m-d H:i:s'),
+            'create_by' => $this->id_user
+        );
+        
+        $this->quiz->save($data_quiz);
+        
+        for ($i=0; $i < sizeof($ques_quiz); $i++) {
+            $detail_quiz = array( 
+                'id_quiz' => $this->quiz->getInsertID(),
+                'id_question' => $ques_quiz[$i]
+            );
+            $this->tb_quizd->insert($detail_quiz);
+        }
     }
 
 }

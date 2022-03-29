@@ -152,23 +152,23 @@ function save_quiz(){
         ques_quiz : $("input[name='question_quiz[]']").map(function(){return $(this).val();}).get() 
     };
     console.log(datana);
-    // var urlna = base_url() + '/dashboard/add_ques_quiz/';
-    // $.ajax({
-    //     url: urlna,  
-    //     type: 'POST',
-    //     data: datana,
-    //     success:function(data){
-    //         var obj = JSON.parse(data)
-    //         var selected_ques = $('.list-qustion-quiz > tbody');
-    //         if ($('.list-qustion-quiz > tbody > tr > td.no-data').length > 0) {
-    //             $('.list-qustion-quiz > tbody > tr > td.no-data').remove()
-    //         }
-    //         var new_ques = '<tr><input type="hidden" name="question_quiz[]" value="'+obj.id+'" /><td>'+obj.title+'</td><td>'+obj.sub_title+'</td><td>'+obj.type+'</td><tr>';
-    //         $(new_ques).appendTo(selected_ques);
-    //         $('#list_question').modal('hide');
-    //     }
-    // });
+    var urlna = base_url() + '/dashboard/save_quiz/';
+    $.ajax({
+        url: urlna,  
+        type: 'POST',
+        data: datana,
+        success:function(data){
+            console.log(data);
+        }
+    });
 }
+
+function remove_question_quiz(i){
+    $('.add_question_quiz' + '[data-value="'+i+'"]').css('display','block');
+    $('table.list-qustion-quiz tr[data-value="'+i+'"]').remove();
+}
+        
+
 $(document).ready(function() {
     $(".ans-line").click(function(){
         var count_lenght = $('.dynamic-element').length;
@@ -299,12 +299,8 @@ $(document).ready(function() {
             id_ques : id_ques
         };
         var urlna = base_url() + '/dashboard/add_ques_quiz/';
-        $('.add_question_quiz' + '[data-value="'+id_ques+'"]').addClass('remove_question_quiz');
-        $('.add_question_quiz' + '[data-value="'+id_ques+'"]').addClass('btn-danger');
-        $('.add_question_quiz' + '[data-value="'+id_ques+'"] > i').addClass('fa-trash');
-        $('.add_question_quiz' + '[data-value="'+id_ques+'"]').removeClass('add_question_quiz');
-        $('.add_question_quiz' + '[data-value="'+id_ques+'"]').removeClass('btn-success');
-        $('.add_question_quiz' + '[data-value="'+id_ques+'"] > i').removeClass('fa-plus');
+        console.log(id_ques)
+        
         $.ajax({
             url: urlna,  
             type: 'POST',
@@ -315,8 +311,12 @@ $(document).ready(function() {
                 if ($('.list-qustion-quiz > tbody > tr > td.no-data').length > 0) {
                     $('.list-qustion-quiz > tbody > tr > td.no-data').remove()
                 }
-                var new_ques = '<tr><input type="hidden" name="question_quiz[]" value="'+obj.id+'" /><td>'+obj.title+'</td><td>'+obj.sub_title+'</td><td>'+obj.type+'</td><tr>';
+                var new_ques = '<tr data-value="'+obj.id+'"><input type="hidden" name="question_quiz[]" value="'+obj.id+'" />\
+                <td>'+obj.title+'</td><td>'+obj.sub_title+'</td><td>'+obj.type+'</td>\
+                <td><button class="btn btn-xs btn-danger" onclick="remove_question_quiz('+obj.id+')"><i class="fa fa-trash"></i></button></td><tr>';
                 $(new_ques).appendTo(selected_ques);
+                
+                $('.add_question_quiz' + '[data-value="'+id_ques+'"]').css('display','none');
                 $('#list_question').modal('hide');
             }
         });
@@ -326,12 +326,6 @@ $(document).ready(function() {
     $(".remove_question_quiz").click(function(){
         console.log("remove")
         var id_ques = $(this).attr('data-value');
-        $('.remove_question_quiz' + '[data-value="'+id_ques+'"]').addClass('add_question_quiz');
-        $('.remove_question_quiz' + '[data-value="'+id_ques+'"]').addClass('btn-success');
-        $('.remove_question_quiz' + '[data-value="'+id_ques+'"] > i').addClass('fa-plus');
-        $('.remove_question_quiz' + '[data-value="'+id_ques+'"]').removeClass('remove_question_quiz');
-        $('.remove_question_quiz' + '[data-value="'+id_ques+'"]').removeClass('btn-danger');
-        $('.remove_question_quiz' + '[data-value="'+id_ques+'"] > i').removeClass('fa-trash');
         
     });
     // Add Row
