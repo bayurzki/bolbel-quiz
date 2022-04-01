@@ -1,18 +1,18 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\question_m;
-use App\Models\quiz_m;
-use App\Models\course_m;
+use App\Models\Question_m;
+use App\Models\Quiz_m;
+use App\Models\Course_m;
 
 class Dashboard extends BaseController
 {
     protected $helpers = ['array_helper']; 
     public function __construct()
     {
-        $this->question = new question_m();
-        $this->quiz = new quiz_m();
-        $this->course = new course_m();
+        $this->question = new Question_m();
+        $this->quiz = new Quiz_m();
+        $this->course = new Course_m();
         $this->id_user = 0; 
         $this->tb_ques = db_connect('default')->table('bdd_quiz_question');
         $this->tb_quiz = db_connect('default')->table('bdd_quiz_quiz');
