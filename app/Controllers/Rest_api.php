@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\question_m;
-use App\Models\answer_m;
-use App\Models\quiz_m;
-use App\Models\course_m;
+use App\Models\Answer_m;
+use App\Models\Question_m;
+use App\Models\Quiz_m;
+use App\Models\Course_m;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 
@@ -14,10 +14,10 @@ class Rest_api extends BaseController
     use ResponseTrait;
     public function __construct()
     {
-        $this->question = new question_m();
-        $this->answer = new answer_m();
-        $this->quiz = new quiz_m();
-        $this->course = new course_m();
+        $this->question = new Question_m();
+        $this->answer = new Answer_m();
+        $this->quiz = new Quiz_m();
+        $this->course = new Course_m();
         $this->id_user = 0; 
     }
 
