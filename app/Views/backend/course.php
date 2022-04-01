@@ -2,12 +2,11 @@
     <div class="page-inner py-5">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
             <div>
-                <h2 class="text-white pb-2 fw-bold">Quiz</h2>
+                <h2 class="text-white pb-2 fw-bold">Courses</h2>
             </div>
         </div>
         <div class="ml-md-auto py-2 py-md-0">
-            <a href="<?=base_url().'/dashboard/quiz_create'?>" class="btn btn-white btn-border btn-round mr-2">Add New</a>
-            <!-- <a href="#" class="btn btn-secondary btn-round">Add Customer</a> -->
+            <a href="<?=base_url().'/dashboard/course_create'?>" class="btn btn-white btn-border btn-round mr-2">Add New</a>
         </div>
     </div>
 </div>
@@ -22,8 +21,6 @@
                     <th>No</th>
                     <th>Title</th>
                     <th>Sub title</th>
-                    <th>Duration</th>
-                    <th>Passing Grade</th>
                     <th>Create At</th>
                     <th>Create By</th>
                 </thead>
@@ -31,10 +28,8 @@
                 <?php $no=1; foreach ($datana as $key => $value) { ?>
                     <tr>
                     <td><?=$no++?></td>
-                    <td><a href="<?=base_url().'/dashboard/quiz_view/'.$value['id']?>"><?=$value['title']?></a></td>
+                    <td><a href="<?=base_url().'/dashboard/course_view/'.$value['id']?>"><?=$value['title']?></a></td>
                     <td><?=$value['sub_title']?></td>
-                    <td><?=$value['duration']?></td>
-                    <td><?=$value['passing_grade']?></td>
                     <td><?=date('Y-m-d H:i', strtotime($value['create_at']))?></td>
                     </tr>
                 <?php } ?>

@@ -147,7 +147,7 @@ function save_quiz(){
         title : $('input[name="title"]').val(),
         sub_title : $('textarea[name="sub_title"]').val(),
         duration : $('input[name="duration"]').val(),
-        passing_grade : $('input[name="title"]').val(),
+        passing_grade : $('input[name="passing_grade"]').val(),
         random_question : $('input[name="random"]').val(),
         ques_quiz : $("input[name='question_quiz[]']").map(function(){return $(this).val();}).get() 
     };
@@ -163,11 +163,35 @@ function save_quiz(){
     });
 }
 
+function save_course(){
+    var datana = {
+        title : $('input[name="title"]').val(),
+        sub_title : $('textarea[name="sub_title"]').val(),
+        quiz_course : $("input[name='quiz_course[]']").map(function(){return $(this).val();}).get() 
+    };
+    console.log(datana);
+    var urlna = base_url() + '/dashboard/save_course/';
+    $.ajax({
+        url: urlna,  
+        type: 'POST',
+        data: datana,
+        success:function(data){
+            console.log(data);
+        }
+    });
+}
+
 function remove_question_quiz(i){
     $('.add_question_quiz' + '[data-value="'+i+'"]').css('display','block');
     $('table.list-qustion-quiz tr[data-value="'+i+'"]').remove();
 }
-        
+
+function remove_quiz_course(i){
+    $('.add_quiz_course' + '[data-value="'+i+'"]').css('display','block');
+    $('table.list-quiz-course tr[data-value="'+i+'"]').remove();
+}
+
+
 
 $(document).ready(function() {
     $(".ans-line").click(function(){
@@ -251,6 +275,31 @@ $(document).ready(function() {
 
     });
 
+    $(".ans-view").click(function(){
+        var id_ques = $(this).attr('data-value');
+        var datana = {
+            type : 'view_quiz'
+        };
+        var urlna = base_url() + '/dashboard/question_view/'+id_ques;
+        
+        $.ajax({
+            url: urlna,  
+            type: 'POST',
+            data: datana,
+            success:function(data){
+                $('#ques_'+id_ques).html(data);
+                if ($('.ans-view[data-value="'+id_ques+'"] > .fa-arrow-right').length == 1) {                      
+                    $('.ans-view[data-value="'+id_ques+'"] > i').removeClass('fa-arrow-right');
+                    $('.ans-view[data-value="'+id_ques+'"] > i').addClass('fa-arrow-down');
+                }else{
+                    $('.ans-view[data-value="'+id_ques+'"] > i').removeClass('fa-arrow-down');
+                    $('.ans-view[data-value="'+id_ques+'"] > i').addClass('fa-arrow-right');
+                }
+            }
+        });
+    });
+
+
     $('.radio-checkbox').click(function(){
         $('.radio-checkbox').each(function(){
             $(this).prop('checked', false); 
@@ -328,6 +377,36 @@ $(document).ready(function() {
         var id_ques = $(this).attr('data-value');
         
     });
+
+    $(".add_quiz_course").click(function(){
+        var id_quiz = $(this).attr('data-value');
+        var datana = {
+            id_quiz : id_quiz
+        };
+        var urlna = base_url() + '/dashboard/add_quiz_course/';
+        
+        $.ajax({
+            url: urlna,  
+            type: 'POST',
+            data: datana,
+            success:function(data){
+                var obj = JSON.parse(data)
+                var selected_quiz = $('.list-quiz-course > tbody');
+                if ($('.list-quiz-course > tbody > tr > td.no-data').length > 0) {
+                    $('.list-quiz-course > tbody > tr > td.no-data').remove()
+                }
+                var new_quiz = '<tr data-value="'+obj.id+'"><input type="hidden" name="quiz_course[]" value="'+obj.id+'" />\
+                <td>'+obj.title+'</td><td>'+obj.sub_title+'</td><td>'+obj.total_question+'</td>\
+                <td><button class="btn btn-xs btn-danger" onclick="remove_quiz_course('+obj.id+')"><i class="fa fa-trash"></i></button></td><tr>';
+                $(new_quiz).appendTo(selected_quiz);
+                
+                $('.add_quiz_course' + '[data-value="'+id_quiz+'"]').css('display','none');
+                $('#list_quiz').modal('hide');
+            }
+        });
+    })
+
+
     // Add Row
     $('#add-row').DataTable({
         "pageLength": 5,

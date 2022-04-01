@@ -491,6 +491,14 @@ input[type=checkbox]{
 	right: 20px;
 }
 
+.text-align-left{
+	text-align: left;
+}
+
+.list-quiz-detail > .ans-view{
+	margin: 5px 0;
+}
+
 @media print {
 	.footer-print{
 	  	display: block;

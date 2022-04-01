@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\question_m;
 use App\Models\answer_m;
 use App\Models\quiz_m;
+use App\Models\course_m;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 
@@ -16,6 +17,7 @@ class Rest_api extends BaseController
         $this->question = new question_m();
         $this->answer = new answer_m();
         $this->quiz = new quiz_m();
+        $this->course = new course_m();
         $this->id_user = 0; 
     }
 
@@ -79,6 +81,30 @@ class Rest_api extends BaseController
             );
             
             return $this->respond(array_merge($quiz,$data));
+        }else{
+            $errors = array(
+                'messages' => 'Not found',
+                'status' => 400,
+                'messages' => 'Data not available'
+            );
+            $description = 'bbb';
+            return $this->fail($errors);
+        }
+        
+    }
+
+    public function get_courses(){
+        $data = $this->course->findAll();
+        return $this->respond($data);
+    }
+
+    public function get_course($id){
+
+        $course = $this->course->find($id);
+        if ($course != NULL) {
+            $coursed = $this->course->get_cdetail($id);
+            
+            return $this->respond($coursed);
         }else{
             $errors = array(
                 'messages' => 'Not found',

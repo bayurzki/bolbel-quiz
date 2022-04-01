@@ -69,4 +69,6 @@ class Question_m extends Model
         $query   = $builder->getWhere(['id_question' => $id_question]);
         return $query->getResult();
     }
+
+    
 }

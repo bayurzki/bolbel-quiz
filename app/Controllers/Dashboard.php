@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Models\question_m;
 use App\Models\quiz_m;
+use App\Models\course_m;
 
 class Dashboard extends BaseController
 {
@@ -11,10 +12,12 @@ class Dashboard extends BaseController
     {
         $this->question = new question_m();
         $this->quiz = new quiz_m();
+        $this->course = new course_m();
         $this->id_user = 0; 
         $this->tb_ques = db_connect('default')->table('bdd_quiz_question');
         $this->tb_quiz = db_connect('default')->table('bdd_quiz_quiz');
         $this->tb_quizd = db_connect('default')->table('bdd_quiz_qdetail');
+        $this->tb_coursed = db_connect('default')->table('bdd_quiz_cdetail');
         $this->tb_answ = db_connect('default')->table('bdd_quiz_answer');
     }
 
@@ -42,7 +45,9 @@ class Dashboard extends BaseController
         $data['ques'] = $this->question->find($id);
         $data['answer'] = $this->question->get_answer($id);
         
-        echo view('header');
+        if (!isset($_POST)) {
+            echo view('header_question');
+        }
         if($data['ques']['type_question'] == 0){
             echo view('backend/ques_v_single', $data);
         }elseif ($data['ques']['type_question'] == 1) {
@@ -52,7 +57,9 @@ class Dashboard extends BaseController
         }else{
             echo view('backend/ques_v_line', $data);
         }
-        echo view('footer');
+        if (!isset($_POST)) {
+            echo view('footer');
+        }
     }
 
     public function answer_type(){
@@ -185,10 +192,17 @@ class Dashboard extends BaseController
     public function quiz_view($id){
         $data['quiz'] = $this->quiz->find($id);
         $data['qdetail'] = $this->quiz->get_qdetail($id);
-        
+
         echo view('header');
         echo view('backend/quiz_v', $data);
         echo view('footer');
+    }
+
+    public function quiz_v_ques(){
+        extract($_POST);
+        $data['ques'] = $this->question->find($id_ques);
+
+        var_dump($data['ques']);
     }
 
     public function add_ques_quiz(){
@@ -236,4 +250,71 @@ class Dashboard extends BaseController
         }
     }
 
+    public function courses(){
+        $data['datana'] = $this->course->findAll();
+        echo view('header');
+        echo view('backend/course',$data);
+        echo view('footer');
+    }
+    public function course_create(){
+        $data['quiz'] = $this->quiz->get_all_wques();
+
+        echo view('header');
+        echo view('backend/course_create',$data);
+        echo view('footer');
+    }
+
+    public function add_quiz_course(){
+        extract($_POST);
+        $data = $this->quiz->get_detail_wques($id_quiz);
+        $data = array(
+            'id' => $data->id,
+            'title' => $data->title,
+            'sub_title' => $data->sub_title,
+            'total_question' => $data->total_question
+        );
+        echo json_encode($data);
+    }
+
+    public function save_course(){
+        extract($_POST);
+
+        $data_course = array(
+            'title' => $title,
+            'sub_title' => $sub_title,
+            'create_at' => date('Y-m-d H:i:s'),
+            'create_by' => $this->id_user
+        );
+        
+        $this->course->save($data_course);
+        
+        for ($i=0; $i < sizeof($quiz_course); $i++) {
+            $detail_course = array( 
+                'id_course' => $this->course->getInsertID(),
+                'id_quiz' => $quiz_course[$i]
+            );
+            $this->tb_coursed->insert($detail_course);
+        }
+    }
+/**
+    public function quiz_view($id){
+        $data['quiz'] = $this->quiz->find($id);
+        $data['qdetail'] = $this->quiz->get_qdetail($id);
+
+        echo view('header');
+        echo view('backend/quiz_v', $data);
+        echo view('footer');
+    }
+
+    public function quiz_v_ques(){
+        extract($_POST);
+        $data['ques'] = $this->question->find($id_ques);
+
+        var_dump($data['ques']);
+    }
+
+    
+
+    
+*/
 }
