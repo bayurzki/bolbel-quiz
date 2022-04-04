@@ -41,23 +41,44 @@ class Dashboard extends BaseController
         echo view('footer');
     }
 
+    public function question_edit($id){
+        $data['ques'] = $this->question->find($id);
+        $data['answer'] = $this->question->get_answer($id);
+
+        echo view('header_question');
+        if($data['ques']['type_question'] == 0){
+            $data['type'] = 'Single Choice';
+            echo view('backend/ques_e_single', $data);
+        }elseif ($data['ques']['type_question'] == 1) {
+            $data['type'] = 'Multiple Choice';
+            echo view('backend/ques_e_multi', $data);
+        }elseif($data['ques']['type_question'] == 2){
+            $data['type'] = 'Group Match';
+            echo view('backend/ques_e_group', $data);
+        }else{
+            $data['type'] = 'Line Match';
+            echo view('backend/ques_e_line', $data);
+        }
+        echo view('footer');
+    }
     public function question_view($id){
         $data['ques'] = $this->question->find($id);
         $data['answer'] = $this->question->get_answer($id);
-        
-        if (!isset($_POST)) {
+        if (isset($_POST['type'])) {
+            
+        }else{
             echo view('header_question');
         }
         if($data['ques']['type_question'] == 0){
             echo view('backend/ques_v_single', $data);
         }elseif ($data['ques']['type_question'] == 1) {
-            // code...
+            echo view('backend/ques_v_multi', $data);
         }elseif($data['ques']['type_question'] == 2){
             echo view('backend/ques_v_group', $data);
         }else{
             echo view('backend/ques_v_line', $data);
         }
-        if (!isset($_POST)) {
+        if (isset($_POST['type'])) {
             echo view('footer');
         }
     }

@@ -58,12 +58,12 @@ function save_question(){
         var correct_2 = {};
         var correct_3 = {};
         correct_1["is_correct"] = '1';
-        correct_1["head"] = $('input[name="a_head_1"]').val();
-        correct_1["body"] = $("input[name='a_list_1[]']").map(function(){return $(this).val();}).get();
+        correct_1["head"] = $('input[name="a_head_0"]').val();
+        correct_1["body"] = $("input[name='a_list_0[]']").map(function(){return $(this).val();}).get();
 
         correct_2["is_correct"] = '1';
-        correct_2["head"] = $('input[name="a_head_2"]').val();
-        correct_2["body"] = $("input[name='a_list_2[]']").map(function(){return $(this).val();}).get();
+        correct_2["head"] = $('input[name="a_head_1"]').val();
+        correct_2["body"] = $("input[name='a_list_1[]']").map(function(){return $(this).val();}).get();
 
         correct_3["is_correct"] = '0';
         correct_3["body"] = $("input[name='a_list_3[]']").map(function(){
@@ -118,19 +118,19 @@ function remove_line(i){
     });
 }
 
+function remove_a_0(i){
+    $('.dynamic-element-0[data-index="'+i+'"]').remove();
+    $('.dynamic-element-0').map(function(i) {
+        $(this).attr('data-index', i);
+        $('.remove_a_0').attr('onclick', 'remove_a_0('+i+')')
+    });
+}
+
 function remove_a_1(i){
     $('.dynamic-element-1[data-index="'+i+'"]').remove();
     $('.dynamic-element-1').map(function(i) {
         $(this).attr('data-index', i);
         $('.remove_a_1').attr('onclick', 'remove_a_1('+i+')')
-    });
-}
-
-function remove_a_2(i){
-    $('.dynamic-element-2[data-index="'+i+'"]').remove();
-    $('.dynamic-element-2').map(function(i) {
-        $(this).attr('data-index', i);
-        $('.remove_a_2').attr('onclick', 'remove_a_2('+i+')')
     });
 }
 
@@ -208,18 +208,18 @@ $(document).ready(function() {
         $(btn_delete).appendTo($('.dynamic-element[data-index="'+count_lenght+'"] > .line-match-list .col-md-2'))
     });
 
+    $(".ans-group-0").click(function(){
+        var count_lenght = $('.dynamic-element-0').length;
+        $('.dynamic-element-0').first().clone().appendTo('.ans-controls-0').attr('data-index',count_lenght).find('input[type="text"]').val('');
+        var btn_delete = '<button class="btn btn-xs btn-danger remove_a_0" onclick="remove_a_0('+count_lenght+')" title="Delete"><i class="fa fa-trash"></i></button>';
+        $(btn_delete).appendTo($('.dynamic-element-0[data-index="'+count_lenght+'"] > td'))
+    });
+
     $(".ans-group-1").click(function(){
         var count_lenght = $('.dynamic-element-1').length;
         $('.dynamic-element-1').first().clone().appendTo('.ans-controls-1').attr('data-index',count_lenght).find('input[type="text"]').val('');
         var btn_delete = '<button class="btn btn-xs btn-danger remove_a_1" onclick="remove_a_1('+count_lenght+')" title="Delete"><i class="fa fa-trash"></i></button>';
         $(btn_delete).appendTo($('.dynamic-element-1[data-index="'+count_lenght+'"] > td'))
-    });
-
-    $(".ans-group-2").click(function(){
-        var count_lenght = $('.dynamic-element-2').length;
-        $('.dynamic-element-2').first().clone().appendTo('.ans-controls-2').attr('data-index',count_lenght).find('input[type="text"]').val('');
-        var btn_delete = '<button class="btn btn-xs btn-danger remove_a_2" onclick="remove_a_2('+count_lenght+')" title="Delete"><i class="fa fa-trash"></i></button>';
-        $(btn_delete).appendTo($('.dynamic-element-2[data-index="'+count_lenght+'"] > td'))
     });
 
     $(".ans-group-3").click(function(){

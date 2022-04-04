@@ -33,6 +33,19 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Dashboard::index');
 
+$routes->group("api", ["namespace" => "App\Controllers", "filter" => "basicauth"] , function($routes){
+    $routes->get("get_questions", "rest_api::get_questions");
+    $routes->get("get_question/(:num)", "rest_api::get_question/$1");
+
+    $routes->get("get_answers", "rest_api::get_answers");
+    $routes->get("get_answer/(:num)", "rest_api::get_answer/$1");
+
+    $routes->get("get_quiz", "rest_api::get_quiz");
+    $routes->get("get_quizd/(:num)", "rest_api::get_quizd/$1");
+
+    $routes->get("get_courses", "rest_api::get_courses");
+    $routes->get("get_course/(:num)", "rest_api::get_course/$1");
+});
 /*
  * --------------------------------------------------------------------
  * Additional Routing
