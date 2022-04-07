@@ -45,6 +45,9 @@ $routes->group("api", ["namespace" => "App\Controllers", "filter" => "basicauth"
 
     $routes->get("get_courses", "Rest_api::get_courses");
     $routes->get("get_course/(:num)", "Rest_api::get_course/$1");
+
+    $routes->post("user_course", "Rest_api::add_user_course");
+    //$routes->get("get_course/(:num)", "Rest_api::get_course/$1");
 });
 /*
  * --------------------------------------------------------------------
