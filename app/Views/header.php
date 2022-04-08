@@ -4,7 +4,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>CCMS</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <link rel="icon" href="http://themekita.com/demo-atlantis-lite-bootstrap/livepreview/examples/assets/img/icon.ico" type="image/x-icon"/>
+    <link rel="icon" href="<?php echo base_url() ?>assets/backend/img/icon.ico" type="image/x-icon"/>
 
     <!-- Fonts and icons -->
     <script src="<?php echo base_url() ?>/backend/js/plugin/webfont/webfont.min.js"></script>
@@ -31,7 +31,7 @@
             <div class="logo-header" data-background-color="dark2">
                 
                 <a href="#" class="logo">
-                    <img src="http://themekita.com/demo-atlantis-lite-bootstrap/livepreview/examples/assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
+                    <img src="<?php echo base_url() ?>assets/backend/img/icon-menu.png" alt="navbar brand" class="navbar-brand">
                 </a>
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <img src="<?php echo base_url() ?>assets/backend/img/icon-menu.png" style="width: 100%; max-width: 25px;">
