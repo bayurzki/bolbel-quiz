@@ -97,7 +97,7 @@ function save_question(){
         a_content: a_content
     }
     console.log(datana)
-    var urlna = base_url() + '/dashboard/save_question/';
+    var urlna = base_url() + '/dashboard/save_question';
     
     $.ajax({
         url: urlna,  
@@ -152,7 +152,7 @@ function save_quiz(){
         ques_quiz : $("input[name='question_quiz[]']").map(function(){return $(this).val();}).get() 
     };
     console.log(datana);
-    var urlna = base_url() + '/dashboard/save_quiz/';
+    var urlna = base_url() + '/dashboard/save_quiz';
     $.ajax({
         url: urlna,  
         type: 'POST',
@@ -170,7 +170,7 @@ function save_course(){
         quiz_course : $("input[name='quiz_course[]']").map(function(){return $(this).val();}).get() 
     };
     console.log(datana);
-    var urlna = base_url() + '/dashboard/save_course/';
+    var urlna = base_url() + '/dashboard/save_course';
     $.ajax({
         url: urlna,  
         type: 'POST',
@@ -347,7 +347,7 @@ $(document).ready(function() {
         var datana = {
             id_ques : id_ques
         };
-        var urlna = base_url() + '/dashboard/add_ques_quiz/';
+        var urlna = base_url() + '/dashboard/add_ques_quiz';
         console.log(id_ques)
         
         $.ajax({
@@ -383,7 +383,7 @@ $(document).ready(function() {
         var datana = {
             id_quiz : id_quiz
         };
-        var urlna = base_url() + '/dashboard/add_quiz_course/';
+        var urlna = base_url() + '/dashboard/add_quiz_course';
         
         $.ajax({
             url: urlna,  
